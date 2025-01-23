@@ -1,9 +1,12 @@
 <script setup lang="ts">
-import TheWelcome from '../components/TheWelcome.vue'
+import CreateKnight from '@/components/CreateKnight.vue';
 </script>
 
 <template>
   <main>
-    <TheWelcome />
+    <!-- <TheWelcome /> -->
+
+    <CreateKnight />
+    
   </main>
 </template>
