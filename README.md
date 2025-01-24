@@ -1,61 +1,33 @@
-# knights-frontend
+# Knights Challenge - Frontend
 
-This template should help get you started developing with Vue 3 in Vite.
+[Tecnologias](#tecnologias) | [Funcionalidades](#funcionalidades) | [Descrição](#descrição) | [Instalação](#instalação) | [Suporte](#suporte)
 
-## Recommended IDE Setup
+## Tecnologias
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+<ul>
+  <li>Vue</li>
+  <li>Pinia</li>
+  <li>Vue Router</li>
+</ul>
 
-## Type Support for `.vue` Imports in TS
+## Funcionalidades
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+- &check; Tela de cadastro de knight
+- &check; Lógica para selecionar armas
+- &check; Lógica para equipar arma
+- &check; Lógica para remover arma 
+- &check; Funções geradoras de atributos aleatórios
+- &check; Handler para juntar dados em um json e enviar POST request para cadastrar knight no servidor
+- &#x2610; Adicionar validação para POST request. Não permitir que request seja feito sem que todos os dados estejam preenchidos
+- &#x2610; Criar lista para exibir todos os knights
+- &#x2610; Lista para exibir todos os knights
+- &#x2610; View para ver os detalhes de um knight
+- &#x2610; Filtro para exibir apenas knights que viram heróis
+- &#x2610; Botão para remover knight
+- &#x2610; Criar testes unitários 
 
-## Customize configuration
+## Descrição
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+## Instalação
 
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-npm run test:unit
-```
-
-### Run End-to-End Tests with [Cypress](https://www.cypress.io/)
-
-```sh
-npm run test:e2e:dev
-```
-
-This runs the end-to-end tests against the Vite development server.
-It is much faster than the production build.
-
-But it's still recommended to test the production build with `test:e2e` before deploying (e.g. in CI environments):
-
-```sh
-npm run build
-npm run test:e2e
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+## Suporte
