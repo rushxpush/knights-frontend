@@ -1,43 +1,53 @@
 <template>
-  <div>
+  <div class="container-page">
     <h1>Cadastro de Knight</h1>
+    <h2>Dados</h2>
     <div class="container">
-      <h2>Dados</h2>
-      <label for="name">Nome</label>
-      <input type="text" id="name" v-model="knightData.name">
+      <div class="container-data">
+        <label for="name">Nome</label>
+        <input type="text" id="name" v-model="knightData.name">
 
-      <label for="nickname">Apelido</label>
-      <input type="text" id="nickname" v-model="knightData.nickname">
+        <label for="nickname">Apelido</label>
+        <input type="text" id="nickname" v-model="knightData.nickname">
 
-      <label for="birthday">Data de Nascimento</label>
-      <input type="date" id="birthday" v-model="knightData.birthday">
+        <label for="birthday">Data de Nascimento</label>
+        <input type="date" id="birthday" v-model="knightData.birthday">
+      </div>
 
       <h2>Armas</h2>
-      <label v-for="weapon in availableWeapons" :key="weapon.name">
-        <input
-          type="checkbox"
-          :value=weapon
-          :disabled="isWeaponSelected(weapon)"
-          v-model="tempSelectedWeapons"
-        />
-        {{ weapon.name }}
-      </label>
-      <button @click="addSelectedWeapons()">Adicionar Armas</button>
+      <div class="container-weapons">
+        <div class="container-weapons-input">
+          <h3>Selecione Armas</h3>
+          <label v-for="weapon in availableWeapons" :key="weapon.name">
+            <input
+              type="checkbox"
+              :value=weapon
+              :disabled="isWeaponSelected(weapon)"
+              v-model="tempSelectedWeapons"
+            />
+            {{ weapon.name }}
+          </label>
+          <button @click="addSelectedWeapons()">Adicionar Armas</button>
+        </div>
 
-      <p>Armas adicionadas</p>
-      <ul v-if="selectedWeapons.length > 0">
-        <li v-for="( weapon, index ) in selectedWeapons" :key="index">
-          <p>name: {{ weapon.name }}</p>
-          <p>modificador: {{ weapon.mod }}</p>
-          <p>atributo: {{ weapon.attr }}</p>
-          <p>equipado: {{ weapon.equipped }}</p>
-          <button @click="equipWeapon(weapon)" :disabled="weapon.equipped">Equipar</button>
-          <button @click="removeWeapon(weapon)">Remover Arma</button>
-        </li>
-      </ul>
+        <div class="container-weapons-selected">
+          <h3>Armas adicionadas</h3>
+          <ul v-if="selectedWeapons.length > 0">
+            <li v-for="( weapon, index ) in selectedWeapons" :key="index">
+              <p>name: {{ weapon.name }}</p>
+              <p>modificador: {{ weapon.mod }}</p>
+              <p>atributo: {{ weapon.attr }}</p>
+              <p>equipado: {{ weapon.equipped }}</p>
+              <button @click="equipWeapon(weapon)" :disabled="weapon.equipped">Equipar</button>
+              <button @click="removeWeapon(weapon)">Remover Arma</button>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
 
       <h2>Atributos</h2>
-
       <div class="container-attributes">
         <div class="container-attributes-inputs">
           <label for="strength">Strength</label>
@@ -65,30 +75,42 @@
 
           <h3>Selecione um atributo principal</h3>
           <div class="container-attributes-key">
-            <input type="radio" id="attr-strength" value="strength" v-model="keyAttribute">
-            <label for="attr-strength">Strength</label>
+            <div class="input-radio">
+              <input type="radio" id="attr-strength" value="strength" v-model="keyAttribute">
+              <label for="attr-strength">Strength</label>
+            </div>
 
-            <input type="radio" id="attr-dexterity" value="dexterity" v-model="keyAttribute">
-            <label for="attr-dexterity">Dexterity</label>
+            <div class="input-radio">
+              <input type="radio" id="attr-dexterity" value="dexterity" v-model="keyAttribute">
+              <label for="attr-dexterity">Dexterity</label>
+            </div>
 
-            <input type="radio" id="attr-constitution" value="constitution" v-model="keyAttribute">
-            <label for="attr-constitution">Constitution</label>
+            <div class="input-radio">
+              <input type="radio" id="attr-constitution" value="constitution" v-model="keyAttribute">
+              <label for="attr-constitution">Constitution</label>
+            </div>
 
-            <input type="radio" id="attr-intelligence" value="intelligence" v-model="keyAttribute">
-            <label for="attr-intelligence">Intelligence</label>
+            <div class="input-radio">
+              <input type="radio" id="attr-intelligence" value="intelligence" v-model="keyAttribute">
+              <label for="attr-intelligence">Intelligence</label>
+            </div>
 
-            <input type="radio" id="attr-wisdom" value="wisdom" v-model="keyAttribute">
-            <label for="attr-wisdom">Wisdom</label>
+            <div class="input-radio">
+              <input type="radio" id="attr-wisdom" value="wisdom" v-model="keyAttribute">
+              <label for="attr-wisdom">Wisdom</label>
+            </div>
 
-            <input type="radio" id="attr-charisma" value="charisma" v-model="keyAttribute">
-            <label for="attr-charisma">Charisma</label>
+            <div class="input-radio">
+              <input type="radio" id="attr-charisma" value="charisma" v-model="keyAttribute">
+              <label for="attr-charisma">Charisma</label>
+            </div>
           </div>
         </div>
 
       </div>
     </div>
 
-    <button @click="handleSubmit()">Cadastrar Knight</button>
+    <button class="submit-button" @click="handleSubmit()">Cadastrar Knight</button>
   </div>
 </template>
 
@@ -225,23 +247,92 @@ const handleSubmit = async () => {
 </script>
 
 <style scoped>
+.container-page {
+  display: flex;
+  flex-direction: column;
+}
 .container {
   display: flex;
   flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.container-data {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid gray;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.container-weapons {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: left;
+  margin-bottom: 20px;
+}
+
+.container-weapons-input {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid gray;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.container-weapons-selected {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid gray;
+  padding: 20px;
+  border-radius: 10px;
+
 }
 
 .container-attributes {
   display: flex;
-  /* flex-direction: column; */
+  flex-direction: row;
+  justify-content: left;
+  gap: 20px;
+  margin-bottom: 20px;
 }
 
 .container-attributes-inputs {
   display: flex;
   flex-direction: column;
+  border: 1px solid gray;
+  border-radius: 10px;
+  padding: 20px;
 }
 
 .container-attributes-roll {
   display: flex;
   flex-direction: column;
+  border: 1px solid gray;
+  border-radius: 10px;
+  padding: 20px;
+  gap: 10px;
+}
+
+.container-attributes-key {
+  display: flex;
+  flex-direction: column;
+
+}
+
+.submit-button {
+  background-color: rgb(58, 217, 58);
+  color: rgb(21, 21, 21);
+  align-self: center;
+  font-size: 20px;
+  transition: all .1s ease-in-out;
+  padding: 20px;
+}
+
+.submit-button:hover {
+  background-color: rgb(27, 161, 27);
+  color: rgb(205, 205, 205);
 }
 </style>
