@@ -20,7 +20,7 @@
           :disabled="isWeaponSelected(weapon)"
           v-model="tempSelectedWeapons"
         />
-        {{ weapon.nomeBr }}
+        {{ weapon.name }}
       </label>
       <button @click="addSelectedWeapons()">Adicionar Armas</button>
 
@@ -62,37 +62,56 @@
           <h3>Roll</h3>
           <p>Clique para gerar atributos aleatoriamente</p>
           <button @click="reRollAttributes()">Jogar dados</button>
+
+          <h3>Selecione um atributo principal</h3>
+          <div class="container-attributes-key">
+            <input type="radio" id="attr-strength" value="strength" v-model="keyAttribute">
+            <label for="attr-strength">Strength</label>
+
+            <input type="radio" id="attr-dexterity" value="dexterity" v-model="keyAttribute">
+            <label for="attr-dexterity">Dexterity</label>
+
+            <input type="radio" id="attr-constitution" value="constitution" v-model="keyAttribute">
+            <label for="attr-constitution">Constitution</label>
+
+            <input type="radio" id="attr-intelligence" value="intelligence" v-model="keyAttribute">
+            <label for="attr-intelligence">Intelligence</label>
+
+            <input type="radio" id="attr-wisdom" value="wisdom" v-model="keyAttribute">
+            <label for="attr-wisdom">Wisdom</label>
+
+            <input type="radio" id="attr-charisma" value="charisma" v-model="keyAttribute">
+            <label for="attr-charisma">Charisma</label>
+          </div>
         </div>
 
       </div>
     </div>
+
+    <button @click="handleSubmit()">Cadastrar Knight</button>
   </div>
 </template>
 
 <script setup lang=ts>
-import { reactive, ref } from 'vue';
+import { onMounted, reactive, ref } from 'vue';
 
 const availableWeapons = [
   {
-    "nomeBr": "Espada",
     "name": "sword",
     "mod": 3,
     "attr": "strength",
   },
   {
-    "nomeBr": "Maça",
     "name": "mace",
     "mod": 2,
     "attr": "strength",
   },
   {
-    "nomeBr": "Bastão",
     "name": "staff",
     "mod": 0,
     "attr": "strength",
   },
   {
-    "nomeBr": "Lança",
     "name": "spear",
     "mod": 4,
     "attr": "strength",
@@ -156,6 +175,8 @@ const attributes = reactive({
   charisma: 0
 })
 
+const keyAttribute = ref()
+
 const reRollAttributes = () => {
   const sides = 6;
   const numberOfDice = 3;
@@ -174,6 +195,32 @@ const throwDice = (sides: number, numberOfDice: number) => {
 
 const getRandomArbitraryNumber = (min: number, max: number)  => {
   return Math.floor(Math.random() * (max - min) + min);
+}
+
+const handleSubmit = async () => {
+  const url = "http://localhost:3000/knights"
+  const knightPostData = {
+    ...knightData,
+    attributes,
+    weapons: selectedWeapons.value,
+    keyAttribute: keyAttribute.value
+  }
+  console.log(knightPostData)
+
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      body: JSON.stringify(knightPostData),
+      headers: {
+        "Content-Type": 'application/json'
+      }
+    })
+
+    console.log('POST successful');
+    console.log('POST response: ', response);
+  } catch(error) {
+    console.log('POST error: ',error);
+  }
 }
 </script>
 
