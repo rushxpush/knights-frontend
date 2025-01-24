@@ -1,7 +1,8 @@
 <template>
   <div>
-    <h1>Criador de Knight</h1>
+    <h1>Cadastro de Knight</h1>
     <div class="container">
+      <h2>Dados</h2>
       <label for="name">Nome</label>
       <input type="text" id="name" v-model="knightData.name">
 
@@ -11,12 +12,29 @@
       <label for="birthday">Data de Nascimento</label>
       <input type="date" id="birthday" v-model="knightData.birthday">
 
-      <label for="weapons">Armas</label>
-      <select v-model="selectedWeapons" name="weapons" id="weapons" multiple>
-        <option value="sword">Espada</option>
-        <option value="mace">Maça</option>
-        <option value="Staff">Bastão</option>
-      </select>
+      <h2>Armas</h2>
+      <label v-for="weapon in availableWeapons" :key="weapon.name">
+        <input
+          type="checkbox"
+          :value=weapon
+          :disabled="isWeaponSelected(weapon)"
+          v-model="tempSelectedWeapons"
+        />
+        {{ weapon.nomeBr }}
+      </label>
+      <button @click="addSelectedWeapons()">Adicionar Armas</button>
+
+      <p>Armas adicionadas</p>
+      <ul v-if="selectedWeapons.length > 0">
+        <li v-for="( weapon, index ) in selectedWeapons" :key="index">
+          <p>name: {{ weapon.name }}</p>
+          <p>modificador: {{ weapon.mod }}</p>
+          <p>atributo: {{ weapon.attr }}</p>
+          <p>equipado: {{ weapon.equipped }}</p>
+          <button @click="equipWeapon(weapon)" :disabled="weapon.equipped">Equipar</button>
+          <button @click="removeWeapon(weapon)">Remover Arma</button>
+        </li>
+      </ul>
 
       <h2>Atributos</h2>
 
@@ -54,13 +72,80 @@
 <script setup lang=ts>
 import { reactive, ref } from 'vue';
 
+const availableWeapons = [
+  {
+    "nomeBr": "Espada",
+    "name": "sword",
+    "mod": 3,
+    "attr": "strength",
+  },
+  {
+    "nomeBr": "Maça",
+    "name": "mace",
+    "mod": 2,
+    "attr": "strength",
+  },
+  {
+    "nomeBr": "Bastão",
+    "name": "staff",
+    "mod": 0,
+    "attr": "strength",
+  },
+  {
+    "nomeBr": "Lança",
+    "name": "spear",
+    "mod": 4,
+    "attr": "strength",
+  },
+]
+
+const tempSelectedWeapons = ref([]);
+const selectedWeapons = ref<object[]>([]);
+
+const addSelectedWeapons = () => {
+  for (let i = 0; i < tempSelectedWeapons.value.length; i++) {
+    if (!isWeaponSelected(tempSelectedWeapons.value[i])) {
+      console.log(selectedWeapons.value)
+      if (selectedWeapons.value.length === 0) {
+        selectedWeapons.value.push({
+          ...tempSelectedWeapons.value[i],
+          equipped: true
+        });
+      }
+      else {
+        selectedWeapons.value.push({
+          ...tempSelectedWeapons.value[i],
+          equipped: false
+        });
+      }
+    }
+  }
+  console.log(selectedWeapons.value)
+  tempSelectedWeapons.value = [];
+}
+
+const equipWeapon = (weapon) => {
+  const equippedWeapon = selectedWeapons.value.find(item => item.equipped === true );
+  equippedWeapon.equipped = false;
+  weapon.equipped = true;
+
+}
+
+const removeWeapon = (weapon) => {
+  selectedWeapons.value = selectedWeapons.value.filter(item => item.name === weapon.name);
+}
+
+const isWeaponSelected = (weapon) => {
+  return selectedWeapons.value.some(item => item.name === weapon.name);
+
+}
+
 const knightData = reactive({
   name: '',
   nickname: '',
   birthday: ''
 });
 
-const selectedWeapons = ref<string[]>([]);
 
 const attributes = reactive({
   strength: 0,
