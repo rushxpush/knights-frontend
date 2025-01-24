@@ -1,0 +1,9 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: knights_frontend_container
+    restart: always
+    ports:
+      - '8080:8080'
