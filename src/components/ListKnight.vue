@@ -18,8 +18,8 @@
             <th>Idade</th>
             <th>Armas</th>
             <th>Atributo</th>
-            <th v-if="showKnightsList">Ataque</th>
-            <th v-if="showKnightsList">Exp</th>
+            <th>Ataque</th>
+            <th>Exp</th>
           </tr>
         </thead>
         <tbody>
@@ -28,9 +28,9 @@
             <td>{{ knight.age }}</td>
             <td>{{ knight.weapons.length }}</td>
             <td>{{ knight.keyAttribute }}</td>
-            <td v-if="showKnightsList">{{ knight.attack }}</td>
-            <td v-if="showKnightsList">{{ knight.experience }}</td>
-            <td v-if="showKnightsList"><button @click="handleRemoveKnight(knight._id)" class="remove-button">Remover Knight</button></td>
+            <td>{{ knight.attack }}</td>
+            <td>{{ knight.experience }}</td>
+            <td><button @click="handleRemoveKnight(knight._id)" class="remove-button">Remover Knight</button></td>
           </tr>
         </tbody>
       </table>
