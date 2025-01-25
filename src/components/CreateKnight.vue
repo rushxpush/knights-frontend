@@ -3,114 +3,119 @@
     <h1>Cadastro de Knight</h1>
     <h2>Dados</h2>
     <div class="container">
-      <div class="container-data">
-        <label for="name">Nome</label>
-        <input type="text" id="name" v-model="knightData.name">
+      <div class="container-top">
+        <div class="container-data">
+          <label for="name">Nome</label>
+          <input type="text" id="name" v-model="knightData.name">
 
-        <label for="nickname">Apelido</label>
-        <input type="text" id="nickname" v-model="knightData.nickname">
+          <label for="nickname">Apelido</label>
+          <input type="text" id="nickname" v-model="knightData.nickname">
 
-        <label for="birthday">Data de Nascimento</label>
-        <input type="date" id="birthday" v-model="knightData.birthday">
+          <label for="birthday">Data de Nascimento</label>
+          <input type="date" id="birthday" v-model="knightData.birthday">
+        </div>
+
+        <div class="container-button">
+          <button class="submit-button" @click="handleSubmit()">Cadastrar Knight</button>
+        </div>
       </div>
 
-      <h2>Armas</h2>
-      <div class="container-weapons">
-        <div class="container-weapons-input">
-          <h3>Selecione Armas</h3>
-          <label v-for="weapon in availableWeapons" :key="weapon.name">
-            <input
-              type="checkbox"
-              :value=weapon
-              :disabled="isWeaponSelected(weapon)"
-              v-model="tempSelectedWeapons"
-            />
-            {{ weapon.name }}
-          </label>
-          <button @click="addSelectedWeapons()">Adicionar Armas</button>
+      <div class="container-options">
+
+        <div class="container-weapons">
+          <div class="container-weapons-input">
+            <h3>Selecione Armas</h3>
+            <label v-for="weapon in availableWeapons" :key="weapon.name">
+              <input
+                type="checkbox"
+                :value=weapon
+                :disabled="isWeaponSelected(weapon)"
+                v-model="tempSelectedWeapons"
+              />
+              {{ weapon.name }}
+            </label>
+            <button @click="addSelectedWeapons()">Adicionar Armas</button>
+          </div>
+
+          <div class="container-weapons-selected">
+            <h3>Armas adicionadas</h3>
+            <ul v-if="selectedWeapons.length > 0">
+              <li v-for="( weapon, index ) in selectedWeapons" :key="index" class="weapon-list-item">
+                <p>name: {{ weapon.name }}</p>
+                <p>modificador: {{ weapon.mod }}</p>
+                <p>atributo: {{ weapon.attr }}</p>
+                <p>equipado: {{ weapon.equipped }}</p>
+                <button @click="equipWeapon(weapon)" :disabled="weapon.equipped">Equipar</button>
+                <button @click="removeWeapon(weapon)">Remover Arma</button>
+              </li>
+            </ul>
+          </div>
+
         </div>
 
-        <div class="container-weapons-selected">
-          <h3>Armas adicionadas</h3>
-          <ul v-if="selectedWeapons.length > 0">
-            <li v-for="( weapon, index ) in selectedWeapons" :key="index" class="weapon-list-item">
-              <p>name: {{ weapon.name }}</p>
-              <p>modificador: {{ weapon.mod }}</p>
-              <p>atributo: {{ weapon.attr }}</p>
-              <p>equipado: {{ weapon.equipped }}</p>
-              <button @click="equipWeapon(weapon)" :disabled="weapon.equipped">Equipar</button>
-              <button @click="removeWeapon(weapon)">Remover Arma</button>
-            </li>
-          </ul>
-        </div>
+        <div class="container-attributes">
+          <div class="container-attributes-inputs">
+            <label for="strength">Strength</label>
+            <input type="text" id="strength" v-model="attributes.strength">
 
-      </div>
+            <label for="dexterity">Dexterity</label>
+            <input type="text" id="dexterity" v-model="attributes.dexterity">
 
+            <label for="constitution">Constitution</label>
+            <input type="text" id="constitution" v-model="attributes.constitution">
 
-      <h2>Atributos</h2>
-      <div class="container-attributes">
-        <div class="container-attributes-inputs">
-          <label for="strength">Strength</label>
-          <input type="text" id="strength" v-model="attributes.strength">
+            <label for="intelligence">Intelligence</label>
+            <input type="text" id="intelligence" v-model="attributes.intelligence">
 
-          <label for="dexterity">Dexterity</label>
-          <input type="text" id="dexterity" v-model="attributes.dexterity">
+            <label for="wisdom">Wisdom</label>
+            <input type="text" id="wisdom" v-model="attributes.wisdom">
 
-          <label for="constitution">Constitution</label>
-          <input type="text" id="constitution" v-model="attributes.constitution">
+            <label for="charisma">Charisma</label>
+            <input type="text" id="charisma" v-model="attributes.charisma">
+          </div>
+          <div class="container-attributes-roll">
+            <h3>Roll</h3>
+            <p>Clique para gerar atributos aleatoriamente</p>
+            <button @click="reRollAttributes()">Jogar dados</button>
 
-          <label for="intelligence">Intelligence</label>
-          <input type="text" id="intelligence" v-model="attributes.intelligence">
+            <h3>Selecione um atributo principal</h3>
+            <div class="container-attributes-key">
+              <div class="input-radio">
+                <input type="radio" id="attr-strength" value="strength" v-model="keyAttribute">
+                <label for="attr-strength">Strength</label>
+              </div>
 
-          <label for="wisdom">Wisdom</label>
-          <input type="text" id="wisdom" v-model="attributes.wisdom">
+              <div class="input-radio">
+                <input type="radio" id="attr-dexterity" value="dexterity" v-model="keyAttribute">
+                <label for="attr-dexterity">Dexterity</label>
+              </div>
 
-          <label for="charisma">Charisma</label>
-          <input type="text" id="charisma" v-model="attributes.charisma">
-        </div>
-        <div class="container-attributes-roll">
-          <h3>Roll</h3>
-          <p>Clique para gerar atributos aleatoriamente</p>
-          <button @click="reRollAttributes()">Jogar dados</button>
+              <div class="input-radio">
+                <input type="radio" id="attr-constitution" value="constitution" v-model="keyAttribute">
+                <label for="attr-constitution">Constitution</label>
+              </div>
 
-          <h3>Selecione um atributo principal</h3>
-          <div class="container-attributes-key">
-            <div class="input-radio">
-              <input type="radio" id="attr-strength" value="strength" v-model="keyAttribute">
-              <label for="attr-strength">Strength</label>
-            </div>
+              <div class="input-radio">
+                <input type="radio" id="attr-intelligence" value="intelligence" v-model="keyAttribute">
+                <label for="attr-intelligence">Intelligence</label>
+              </div>
 
-            <div class="input-radio">
-              <input type="radio" id="attr-dexterity" value="dexterity" v-model="keyAttribute">
-              <label for="attr-dexterity">Dexterity</label>
-            </div>
+              <div class="input-radio">
+                <input type="radio" id="attr-wisdom" value="wisdom" v-model="keyAttribute">
+                <label for="attr-wisdom">Wisdom</label>
+              </div>
 
-            <div class="input-radio">
-              <input type="radio" id="attr-constitution" value="constitution" v-model="keyAttribute">
-              <label for="attr-constitution">Constitution</label>
-            </div>
-
-            <div class="input-radio">
-              <input type="radio" id="attr-intelligence" value="intelligence" v-model="keyAttribute">
-              <label for="attr-intelligence">Intelligence</label>
-            </div>
-
-            <div class="input-radio">
-              <input type="radio" id="attr-wisdom" value="wisdom" v-model="keyAttribute">
-              <label for="attr-wisdom">Wisdom</label>
-            </div>
-
-            <div class="input-radio">
-              <input type="radio" id="attr-charisma" value="charisma" v-model="keyAttribute">
-              <label for="attr-charisma">Charisma</label>
+              <div class="input-radio">
+                <input type="radio" id="attr-charisma" value="charisma" v-model="keyAttribute">
+                <label for="attr-charisma">Charisma</label>
+              </div>
             </div>
           </div>
-        </div>
 
+        </div>
       </div>
     </div>
 
-    <button class="submit-button" @click="handleSubmit()">Cadastrar Knight</button>
   </div>
 </template>
 
@@ -261,13 +266,34 @@ const handleSubmit = async () => {
   margin-bottom: 20px;
 }
 
+.container-top {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  justify-content: left;
+}
+
 .container-data {
   display: flex;
   flex-direction: column;
   border: 1px solid gray;
   padding: 20px;
   border-radius: 10px;
-  margin-bottom: 20px;
+}
+
+.container-button {
+  display: flex;
+  flex-direction: column;
+  /* border: 1px solid gray; */
+  /* padding: 20px; */
+  /* border-radius: 10px; */
+}
+
+.container-options {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: left;
 }
 
 .container-weapons {

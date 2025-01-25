@@ -59,11 +59,14 @@ table {
 th {
   border-bottom: 1px solid lightgray;
 }
+
+
 td {
   border-bottom: 1px solid gray;
   width: 100px;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-align: center;
 }
 
 /* a,
