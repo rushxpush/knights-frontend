@@ -1,11 +1,14 @@
 <template>
   <div class="container">
-    <h1>Lista de Knights</h1>
+    <h1>Lista de
+      <span v-if="showKnightsList">Knights</span>
+      <span v-else>Heróis</span>
+    </h1>
     <div class="container-knights-list">
       <div class="container-knights-hero-toggles">
         <button @click="handleToggleKnightHeroList()">
-          <p v-if="showKnightsList">Mostrar Heróis</p>
-          <p v-else>Mostrar Knights</p>
+          <span v-if="showKnightsList">Mostrar Heróis</span>
+          <span v-else>Mostrar Knights</span>
         </button>
       </div>
       <table>
@@ -20,7 +23,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="knight in knights" :key="knight._id">
+          <tr v-for="knight in knights" :key="knight._id" class="tr-body">
             <td>{{ knight.name }}</td>
             <td>{{ knight.age }}</td>
             <td>{{ knight.weapons.length }}</td>
@@ -67,7 +70,7 @@ import { onMounted, ref, type Ref } from 'vue';
 
   const handleRemoveKnight = async (_id: string) => {
     try {
-      const response = await fetch(url + _id, {
+      const response = await fetch(url + `/${_id}`, {
         method: 'Delete'
       });
       const data = await response.json();
@@ -112,5 +115,9 @@ import { onMounted, ref, type Ref } from 'vue';
   background-color: rgb(232, 65, 65);
   color: rgb(35, 35, 35);
 
+}
+
+.tr-body:hover {
+  background-color: gray;
 }
 </style>
