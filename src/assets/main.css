@@ -43,6 +43,29 @@ button:hover {
   color: white;
 }
 
+a, .green {
+  text-decoration: none;
+  color: hsla(160, 100%, 37%, 1);
+  transition: 0.4s;
+  padding: 3px;
+}
+
+table {
+  border: 1px solid gray;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+th {
+  border-bottom: 1px solid lightgray;
+}
+td {
+  border-bottom: 1px solid gray;
+  width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 /* a,
 .green {
   text-decoration: none;

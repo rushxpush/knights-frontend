@@ -4,9 +4,6 @@ import CreateKnight from '@/components/CreateKnight.vue';
 
 <template>
   <main>
-    <!-- <TheWelcome /> -->
-
     <CreateKnight />
-    
   </main>
 </template>

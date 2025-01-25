@@ -33,7 +33,7 @@
         <div class="container-weapons-selected">
           <h3>Armas adicionadas</h3>
           <ul v-if="selectedWeapons.length > 0">
-            <li v-for="( weapon, index ) in selectedWeapons" :key="index">
+            <li v-for="( weapon, index ) in selectedWeapons" :key="index" class="weapon-list-item">
               <p>name: {{ weapon.name }}</p>
               <p>modificador: {{ weapon.mod }}</p>
               <p>atributo: {{ weapon.attr }}</p>
@@ -115,33 +115,35 @@
 </template>
 
 <script setup lang=ts>
-import { onMounted, reactive, ref } from 'vue';
+import type { Attributes } from '@/interfaces/attributes.interface';
+import type { Weapon } from '@/interfaces/weapon.interface';
+import { reactive, ref } from 'vue';
 
-const availableWeapons = [
+const availableWeapons: Array<Weapon> = [
   {
-    "name": "sword",
-    "mod": 3,
-    "attr": "strength",
+    name: "sword",
+    mod: 3,
+    attr: "strength",
   },
   {
-    "name": "mace",
-    "mod": 2,
-    "attr": "strength",
+    name: "mace",
+    mod: 2,
+    attr: "strength",
   },
   {
-    "name": "staff",
-    "mod": 0,
-    "attr": "strength",
+    name: "staff",
+    mod: 0,
+    attr: "strength",
   },
   {
-    "name": "spear",
-    "mod": 4,
-    "attr": "strength",
+    name: "spear",
+    mod: 4,
+    attr: "strength",
   },
 ]
 
-const tempSelectedWeapons = ref([]);
-const selectedWeapons = ref<object[]>([]);
+const tempSelectedWeapons = ref<Weapon[]>([]);
+const selectedWeapons = ref<Weapon[]>([]);
 
 const addSelectedWeapons = () => {
   for (let i = 0; i < tempSelectedWeapons.value.length; i++) {
@@ -165,18 +167,18 @@ const addSelectedWeapons = () => {
   tempSelectedWeapons.value = [];
 }
 
-const equipWeapon = (weapon) => {
-  const equippedWeapon = selectedWeapons.value.find(item => item.equipped === true );
+const equipWeapon = (weapon: Weapon) => {
+  const equippedWeapon: Weapon = selectedWeapons.value.find(item => item.equipped === true )!;
   equippedWeapon.equipped = false;
   weapon.equipped = true;
 
 }
 
-const removeWeapon = (weapon) => {
+const removeWeapon = (weapon: Weapon) => {
   selectedWeapons.value = selectedWeapons.value.filter(item => item.name === weapon.name);
 }
 
-const isWeaponSelected = (weapon) => {
+const isWeaponSelected = (weapon: Weapon) => {
   return selectedWeapons.value.some(item => item.name === weapon.name);
 
 }
@@ -188,7 +190,7 @@ const knightData = reactive({
 });
 
 
-const attributes = reactive({
+const attributes: Attributes = reactive({
   strength: 0,
   dexterity: 0,
   constitution: 0,
@@ -202,7 +204,9 @@ const keyAttribute = ref()
 const reRollAttributes = () => {
   const sides = 6;
   const numberOfDice = 3;
-  for (const key in attributes) {
+  let key: keyof Attributes;
+
+  for ( key in attributes) {
     attributes[key] = throwDice(sides, numberOfDice);
   }
 }
@@ -220,7 +224,7 @@ const getRandomArbitraryNumber = (min: number, max: number)  => {
 }
 
 const handleSubmit = async () => {
-  const url = "http://localhost:3000/knights"
+  const url = "http://localhost:3000/knights/"
   const knightPostData = {
     ...knightData,
     attributes,
@@ -288,7 +292,12 @@ const handleSubmit = async () => {
   border: 1px solid gray;
   padding: 20px;
   border-radius: 10px;
+}
 
+.weapon-list-item {
+  border: 1px solid gray;
+  padding: 20px;
+  border-radius: 10px;
 }
 
 .container-attributes {
