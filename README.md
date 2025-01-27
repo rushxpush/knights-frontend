@@ -41,7 +41,9 @@
 
 ## Descrição
 
-Este se trata do frontend de um desafio de programação que fiz para uma vaga de emprego. Não está completo como podem ver pelas imagens e pela lista de funcionalidades faltando. Mas como desafio em um tempo limitado, acredito que esta bem satisfatório. É possível criar um knight/cavaleiro, editar seu apelido e remover ele da lista de knights (nesse caso ele vai para a lista de heróis).
+Este se trata do frontend de um desafio de programação que fiz para uma vaga de emprego. Não está completo como podem ver pelas imagens e pela lista de funcionalidades faltando. Mas como desafio em um tempo limitado, acredito que esta bem satisfatório. Não me atenteni tanto a deixar o botões perfeitinhos e tudo bem alinhado, ja que esse não era o foco do desafio. 
+
+Nesse app é possível criar um knight/cavaleiro, editar seu apelido e remover ele da lista de knights (nesse caso ele vai para a lista de heróis).
 Como melhorias mais imediatas, primeiramente eu corrigiria o bug que esta dando na remoção de armas, como está descrito na parte de bugs, acredito ser o problema mais grosseiro no momento.
 
 Em segundo lugar, colocaria a validação nos inputs para criar o knight. Depois implantaria os testes unitários, que infelizmente não tive tempo de fazer. Só implantei parcialmente no backend. E por último, daria uma repaginada no visual pra ficar mais com uma cara medieval.
