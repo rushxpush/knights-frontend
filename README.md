@@ -26,6 +26,7 @@
 - &check; Configurar servidor para dar suporte ao history mode do Vue Router
 - &check; Criar componente ListKnight.vue para exibir lista de todos os knights
 - &check; Permitir update de nickname de knight
+- &check; Aplicar os tipos do Typescript em todas as funções e variáveis que faltam
 - &#x2610; Modal para mostrar se mudanças foram bem (ou mal) sucedidas no banco.
 - &#x2610; Adicionar validação para POST request. Não permitir que request seja feito sem que todos os dados estejam preenchidos
 - &#x2610; Lista para exibir todos os knights
@@ -62,6 +63,8 @@ docker compose up --build
 [Ir para o topo](#knights-challenge---frontend)
 
 ## Suporte
+
+Qualquer dúvida mande um email para [rafagarciadev@gmail.com](mailto:rafagarciadev@gmail.com)
 
 [Ir para o topo](#knights-challenge---frontend)
 

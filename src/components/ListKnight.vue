@@ -119,7 +119,7 @@ import ShowResponseStatus from './ShowResponseStatus.vue';
 
   const newKnightNickname = ref('');
 
-  const handleUpdateNickname = async (knight) => {
+  const handleUpdateNickname = async (knight: FetchedKnight) => {
     try {
       const response = await fetch(url + `/${knight._id}`, {
         method: 'PATCH',
