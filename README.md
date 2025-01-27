@@ -7,6 +7,7 @@
 <ul>
   <li>Vue</li>
   <!-- <li>Pinia</li> -->
+  <li>Oh, Vue Icons!</li>
   <li>Vue Router</li>
 </ul>
 
@@ -24,7 +25,8 @@
 - &check; Containerizar aplicação
 - &check; Configurar servidor para dar suporte ao history mode do Vue Router
 - &check; Criar componente ListKnight.vue para exibir lista de todos os knights
-- &#x2610; Permitir update de nickname de knight
+- &check; Permitir update de nickname de knight
+- &#x2610; Modal para mostrar se mudanças foram bem (ou mal) sucedidas no banco.
 - &#x2610; Adicionar validação para POST request. Não permitir que request seja feito sem que todos os dados estejam preenchidos
 - &#x2610; Lista para exibir todos os knights
 - &#x2610; View para ver os detalhes de um knight

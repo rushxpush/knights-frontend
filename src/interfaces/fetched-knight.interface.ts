@@ -13,4 +13,5 @@ export interface FetchedKnight {
   experience: number;
   attack: number;
   age: number;
+  edit?: boolean;
 }

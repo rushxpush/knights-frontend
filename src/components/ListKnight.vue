@@ -15,6 +15,7 @@
         <thead>
           <tr>
             <th>Nome</th>
+            <th>Apelido</th>
             <th>Idade</th>
             <th>Armas</th>
             <th>Atributo</th>
@@ -25,12 +26,17 @@
         <tbody>
           <tr v-for="knight in knights" :key="knight._id" class="tr-body">
             <td>{{ knight.name }}</td>
+            <td v-if="!knight.edit">{{ knight.nickname }}</td>
+            <td v-else><input :value="newKnightNickname" :placeholder="knight.nickname" /></td>
             <td>{{ knight.age }}</td>
             <td>{{ knight.weapons.length }}</td>
             <td>{{ knight.keyAttribute }}</td>
             <td>{{ knight.attack }}</td>
             <td>{{ knight.experience }}</td>
-            <td><button @click="handleRemoveKnight(knight._id)" class="remove-button">Remover Knight</button></td>
+            <td v-if="knight.edit === false && showKnightsList" class="td-button"><button @click="knight.edit = !knight.edit" class="edit-button"><v-icon name="bi-pencil-fill" /></button></td>
+            <td v-if="knight.edit === true" class="td-button"><button @click="knight.edit = !knight.edit" class="cancel-button"><v-icon name="gi-cancel" /></button></td>
+            <td v-if="knight.edit === true" class="td-button"><button @click="handleUpdateNickname(knight)" class="update-button"><v-icon name="fa-save" /></button></td>
+            <td v-if="showKnightsList" class="td-button"><button @click="handleRemoveKnight(knight._id)" class="remove-button"><v-icon name="bi-trash" fill="red"/></button></td>
           </tr>
         </tbody>
       </table>
@@ -52,6 +58,7 @@ import { onMounted, ref, type Ref } from 'vue';
       const response = await fetch(url);
       const data: FetchedKnight[] = await response.json();
       knights.value = data;
+      addEditToKnightsList()
     } catch(error) {
       console.log('Error: ', error)
     }
@@ -62,10 +69,19 @@ import { onMounted, ref, type Ref } from 'vue';
       const response = await fetch(url + '?filter=heroes');
       const data: FetchedKnight[] = await response.json();
       knights.value = data;
+      addEditToKnightsList()
     } catch(error) {
       console.log('Error: ', error)
     }
+  }
 
+  const addEditToKnightsList = () => {
+    knights.value = knights.value.map((keys) => {
+      return {
+      ...keys,
+      edit: false
+      }
+    });
   }
 
   const handleRemoveKnight = async (_id: string) => {
@@ -89,7 +105,30 @@ import { onMounted, ref, type Ref } from 'vue';
     else {
       handleFetchHeroesList()
     }
+  }
 
+  const newKnightNickname = ref('');
+
+  const handleUpdateNickname = async (knight) => {
+    try {
+      const response = await fetch(url + `/${knight._id}`, {
+        method: 'UPDATE',
+        body: JSON.stringify({
+          nickname: knight.nickname
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to update nickname: ${response.statusText}`)
+      }
+      else {
+        knight.edit = false;
+        handleFetchKnightsList();
+      }
+
+    } catch(error) {
+      console.log('error: ', error);
+    }
   }
 
   onMounted(() => {
@@ -103,19 +142,44 @@ import { onMounted, ref, type Ref } from 'vue';
   display: flex;
   gap: 10px;
   margin-bottom: 10px;
-
-
 }
-.remove-button {
-  background-color: rgb(129, 17, 17);
+
+input {
+  max-width: 100px;
+  border: none;
+  padding: 10px;
+}
+
+.td-button {
+  border: none;
+  padding: 0;
+  width: auto;
+}
+
+button {
+  padding: 10px;
+}
+
+.update-button {
+  background-color: rgb(32, 220, 51);
   color: rgb(255, 255, 255);
-  min-width: 150px;
 }
+
+.cancel-button {
+  background-color: rgb(234, 11, 11);
+  color: rgb(255, 255, 255);
+
+}
+
+.remove-button {
+  background-color: rgb(241, 241, 241);
+  color: red;
+}
+
 .remove-button:hover {
   background-color: rgb(232, 65, 65);
-  color: rgb(35, 35, 35);
-
 }
+
 
 .tr-body:hover {
   background-color: gray;
