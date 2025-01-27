@@ -1,5 +1,6 @@
 <template>
   <div class="container-page">
+    <ShowResponseStatus :responseStatus="responseStatus" :message="responseMessage" :isVisible="isModalVisible" @hide="resetResponse" />
     <h1>Cadastro de Knight</h1>
     <h2>Dados</h2>
     <div class="container">
@@ -122,7 +123,25 @@
 <script setup lang=ts>
 import type { Attributes } from '@/interfaces/attributes.interface';
 import type { Weapon } from '@/interfaces/weapon.interface';
+import ShowResponseStatus from './ShowResponseStatus.vue';
 import { reactive, ref } from 'vue';
+
+const knightData = reactive({
+  name: '',
+  nickname: '',
+  birthday: ''
+});
+
+const attributes: Attributes = reactive({
+  strength: 0,
+  dexterity: 0,
+  constitution: 0,
+  intelligence: 0,
+  wisdom: 0,
+  charisma: 0
+})
+
+const keyAttribute = ref()
 
 const availableWeapons: Array<Weapon> = [
   {
@@ -147,6 +166,10 @@ const availableWeapons: Array<Weapon> = [
   },
 ]
 
+const responseStatus = ref<number|null>(null);
+const responseMessage = ref<string>('');
+const isModalVisible = ref<boolean>(false);
+
 const tempSelectedWeapons = ref<Weapon[]>([]);
 const selectedWeapons = ref<Weapon[]>([]);
 
@@ -168,7 +191,6 @@ const addSelectedWeapons = () => {
       }
     }
   }
-  console.log(selectedWeapons.value)
   tempSelectedWeapons.value = [];
 }
 
@@ -185,26 +207,7 @@ const removeWeapon = (weapon: Weapon) => {
 
 const isWeaponSelected = (weapon: Weapon) => {
   return selectedWeapons.value.some(item => item.name === weapon.name);
-
 }
-
-const knightData = reactive({
-  name: '',
-  nickname: '',
-  birthday: ''
-});
-
-
-const attributes: Attributes = reactive({
-  strength: 0,
-  dexterity: 0,
-  constitution: 0,
-  intelligence: 0,
-  wisdom: 0,
-  charisma: 0
-})
-
-const keyAttribute = ref()
 
 const reRollAttributes = () => {
   const sides = 6;
@@ -247,11 +250,22 @@ const handleSubmit = async () => {
       }
     })
 
-    console.log('POST successful');
-    console.log('POST response: ', response);
+    responseStatus.value = response.status
+    responseMessage.value = response.statusText
+    isModalVisible.value = true;
+
   } catch(error) {
     console.log('POST error: ',error);
   }
+}
+
+const resetResponse = () => {
+  console.log('resetResponse')
+  setTimeout(() => {
+    responseMessage.value = '';
+    responseStatus.value = null;
+    isModalVisible.value = false;
+  }, 1000)
 }
 </script>
 

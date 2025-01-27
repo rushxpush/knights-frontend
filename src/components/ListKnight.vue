@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <ShowResponseStatus :responseStatus="responseStatus" :message="responseMessage" :isVisible="isModalVisible" @hide="resetResponse" />
     <h1>Lista de
       <span v-if="showKnightsList">Knights</span>
       <span v-else>Heróis</span>
@@ -27,7 +28,7 @@
           <tr v-for="knight in knights" :key="knight._id" class="tr-body">
             <td>{{ knight.name }}</td>
             <td v-if="!knight.edit">{{ knight.nickname }}</td>
-            <td v-else><input :value="newKnightNickname" :placeholder="knight.nickname" /></td>
+            <td v-else><input v-model="newKnightNickname" :placeholder="knight.nickname" /></td>
             <td>{{ knight.age }}</td>
             <td>{{ knight.weapons.length }}</td>
             <td>{{ knight.keyAttribute }}</td>
@@ -48,11 +49,17 @@
 <script setup lang="ts">
 import type { FetchedKnight } from '@/interfaces/fetched-knight.interface';
 import { onMounted, ref, type Ref } from 'vue';
+import ShowResponseStatus from './ShowResponseStatus.vue';
 
   const url = 'http://localhost:3000/knights'
   const showKnightsList = ref(true);
 
   const knights: Ref<FetchedKnight[]> = ref([]);
+
+  const responseStatus = ref<number|null>(null);
+  const responseMessage = ref<string>('');
+  const isModalVisible = ref<boolean>(false);
+
   const handleFetchKnightsList = async () => {
     try {
       const response = await fetch(url);
@@ -89,8 +96,11 @@ import { onMounted, ref, type Ref } from 'vue';
       const response = await fetch(url + `/${_id}`, {
         method: 'Delete'
       });
-      const data = await response.json();
-      console.log('deleted knight: ', data)
+
+      responseStatus.value = response.status
+      responseMessage.value = response.statusText
+      isModalVisible.value = true;
+
       handleFetchKnightsList();
     } catch(error) {
       console.log('Error: ', error);
@@ -112,23 +122,39 @@ import { onMounted, ref, type Ref } from 'vue';
   const handleUpdateNickname = async (knight) => {
     try {
       const response = await fetch(url + `/${knight._id}`, {
-        method: 'UPDATE',
+        method: 'PATCH',
+        headers: {
+          "Content-Type": "application/json"
+        },
         body: JSON.stringify({
-          nickname: knight.nickname
+          nickname: newKnightNickname.value
         })
       });
+
+      responseStatus.value = response.status
+      responseMessage.value = response.statusText
+      isModalVisible.value = true;
 
       if (!response.ok) {
         throw new Error(`Failed to update nickname: ${response.statusText}`)
       }
       else {
         knight.edit = false;
+        newKnightNickname.value = '';
         handleFetchKnightsList();
       }
 
     } catch(error) {
       console.log('error: ', error);
     }
+  }
+
+  const resetResponse = () => {
+    setTimeout(() => {
+      responseMessage.value = '';
+      responseStatus.value = null;
+      isModalVisible.value = false;
+    }, 1000)
   }
 
   onMounted(() => {
