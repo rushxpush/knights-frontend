@@ -68,7 +68,7 @@ docker compose up --build
 
 3. Não esqueça de montar a imagem do backend e rodar. Link: [knights-challenge-backend](https://github.com/rushxpush/knights-backend)
 
-4. Acesse a página em (localhost:8080)['http://localhost:8080']
+4. Acesse a página em [localhost:8080](http://localhost:8080)
 
 [Ir para o topo](#knights-challenge---frontend)
 
