@@ -29,30 +29,32 @@
 - &check; Filtro para exibir apenas knights que viram heróis
 - &check; Modal para mostrar se mudanças foram bem (ou mal) sucedidas no banco.
 - &check; Botão para remover knight
-- &#x2610; Aplicar os tipos do Typescript em todas as funções e variáveis que faltam
-- &check; Modal para mostrar se mudanças foram bem (ou mal) sucedidas no banco.
 - &check; Filtro para exibir apenas knights que viraram heróis
 - &#x2610; Botão para limpar input de criação de knight
 - &#x2610; Aplicar os tipos do Typescript em todas as funções e variáveis que faltam
 - &#x2610; Refatorar CreateKnight.vue e ListKnight.vue em subcomponentes (WeaponComponent.vue, AttributesComponent.vue, etc.)
 - &#x2610; Adicionar validação para POST request. Não permitir que request seja feito sem que todos os dados estejam preenchidos
-- &#x2610; Lista para exibir todos os knights
-- &#x2610; View para ver os detalhes de um knight
+- &#x2610; Componente para ver os detalhes de um knight
 - &#x2610; Implementar testes unitários
 - &#x2610; Testes e2e
+- &#x2610; Refatorar visual, alinhar botões e divs (e instalar styled-components ou tailwind)
+- &#x2610; Não esquecer de testar no mobile após refatoração
+
+
+
 
 [Ir para o topo](#knights-challenge---frontend)
 
 ## Descrição
 
-Este se trata do frontend de um desafio de programação que fiz para uma vaga de emprego. Não está completo como podem ver pelas imagens e pela lista de funcionalidades faltando. Mas como desafio em um tempo limitado, acredito que esta bem satisfatório. Não me atenteni tanto a deixar o botões perfeitinhos e tudo bem alinhado, ja que esse não era o foco do desafio. 
+Este se trata do frontend de um desafio de programação que fiz para uma vaga de emprego. Não está completo como podem ver pelas imagens e pela lista de funcionalidades faltando. Mas como desafio em um tempo limitado, acredito que esta bem satisfatório. Não me atentei tanto a deixar o botões perfeitinhos e tudo bem alinhado, ja que esse não era o foco do desafio e o tempo era escasso.
 
 Nesse app é possível criar um knight/cavaleiro, editar seu apelido e remover ele da lista de knights (nesse caso ele vai para a lista de heróis).
-Como melhorias mais imediatas, primeiramente eu corrigiria o bug que esta dando na remoção de armas, como está descrito na parte de bugs, acredito ser o problema mais grosseiro no momento.
-
-Em segundo lugar, colocaria a validação nos inputs para criar o knight. Depois implantaria os testes unitários, que infelizmente não tive tempo de fazer. Só implantei parcialmente no backend. E por último, daria uma repaginada no visual pra ficar mais com uma cara medieval.
+Como melhorias mais imediatas colocaria a validação nos inputs para criar o knight. Depois implantaria os testes unitários, que infelizmente não tive tempo de fazer. Só implantei parcialmente no backend. Colocaria um sistema para zerar os inputs após a criação do knight e por último, daria uma repaginada no visual, para ficar tudo alinhado pra ficar mais com uma cara medieval, além de colocar o breakpoints para o mobile.
 
 No mais, além das funcionalidades descritas na lista, já penso em continuar por um tempo colocando coisas legais nesse projeto como um randomizador de personagens, um sistema de combate similar a jogos incrementais tipo CandyBox e um sistema de avanço de níveis. Sugestões serão sempre bem vindas.
+
+**Importante**: Se você der um refresh na rota /list, vai dar erro na página. Ainda não configurei o servidor para dar suporte ao Vue Router. Desculpe pelo inconveniente.
 
 
 [Ir para o topo](#knights-challenge---frontend)
