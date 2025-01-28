@@ -196,13 +196,23 @@ const addSelectedWeapons = () => {
 
 const equipWeapon = (weapon: Weapon) => {
   const equippedWeapon: Weapon = selectedWeapons.value.find(item => item.equipped === true )!;
-  equippedWeapon.equipped = false;
-  weapon.equipped = true;
-
+  if (equippedWeapon) {
+    equippedWeapon.equipped = false;
+    weapon.equipped = true;
+  }
+  else {
+    weapon.equipped = true;
+  }
 }
 
 const removeWeapon = (weapon: Weapon) => {
-  selectedWeapons.value = selectedWeapons.value.filter(item => item.name === weapon.name);
+  const wasEquipped: boolean|undefined = weapon.equipped;
+  const newSelectedWeapons: Array<Weapon> = selectedWeapons.value.filter(item => item.name !== weapon.name);
+  selectedWeapons.value = newSelectedWeapons;
+
+  if (wasEquipped && selectedWeapons.value.length > 0) {
+    equipWeapon(selectedWeapons.value[0]);
+  }
 }
 
 const isWeaponSelected = (weapon: Weapon) => {

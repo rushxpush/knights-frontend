@@ -26,13 +26,13 @@
 - &check; Configurar servidor para dar suporte ao history mode do Vue Router
 - &check; Criar componente ListKnight.vue para exibir lista de todos os knights
 - &check; Permitir update de nickname de knight
-- &check; Aplicar os tipos do Typescript em todas as funções e variáveis que faltam
-- &#x2610; Modal para mostrar se mudanças foram bem (ou mal) sucedidas no banco.
+- &check; Filtro para exibir apenas knights que viram heróis
+- &check; Modal para mostrar se mudanças foram bem (ou mal) sucedidas no banco.
+- &check; Botão para remover knight
+- &#x2610; Aplicar os tipos do Typescript em todas as funções e variáveis que faltam
 - &#x2610; Adicionar validação para POST request. Não permitir que request seja feito sem que todos os dados estejam preenchidos
 - &#x2610; Lista para exibir todos os knights
 - &#x2610; View para ver os detalhes de um knight
-- &#x2610; Filtro para exibir apenas knights que viram heróis
-- &#x2610; Botão para remover knight
 - &#x2610; Implementar testes unitários
 - &#x2610; Testes e2e
 
@@ -70,12 +70,12 @@ Qualquer dúvida mande um email para [rafagarciadev@gmail.com](mailto:rafagarcia
 
 ## Lista de bugs
 
-- &#x2610; Clicar no botão para remover armas da problema. Remover uma arma desequipada desequipa a outra. Caso haja três armas, remover uma arma desequipada, remove as duas desequipadas e desequipa a equipada.
 - &#x2610; Acessar qualquer link que não seja http://localhost:8080 na barra de navegação gera um erro de página não encontrada (falta configurar o servidor para dar suporte ao Vue Router)
-
 
 [Ir para o topo](#knights-challenge---frontend)
 
 ## Bugs Resolvidos
+
+- &check; Clicar no botão para remover armas da problema. Remover uma arma desequipada desequipa a outra. Caso haja três armas, remover uma arma desequipada, remove as duas desequipadas e desequipa a equipada.
 
 [Ir para o topo](#knights-challenge---frontend)
