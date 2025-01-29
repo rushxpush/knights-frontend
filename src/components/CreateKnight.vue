@@ -141,7 +141,7 @@ const attributes: Attributes = reactive({
   charisma: 0
 })
 
-const keyAttribute = ref()
+const keyAttribute = ref('strength')
 
 const availableWeapons: Array<Weapon> = [
   {
