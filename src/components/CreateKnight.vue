@@ -242,14 +242,15 @@ const getRandomArbitraryNumber = (min: number, max: number)  => {
 }
 
 
-const validatePostSubmit = (knightPostData) => {
+// const validatePostSubmit = (knightPostData: KnightData) => {
 
-  if (!knightPostData.name)  return true;
+//   if (!knightPostData.name)  return true;
 
-}
+// }
 
 const handleSubmit = async () => {
-  const url: string = import.meta.env.VITE_API_URL + import.meta.env.VITE_KNIGHTS_ROUTE
+  // const url: string = import.meta.env.VITE_API_URL + import.meta.env.VITE_KNIGHTS_ROUTE
+  const url: string = 'http://localhost:3000/knights'
   const knightPostData = {
     ...knightData,
     attributes,
@@ -257,12 +258,12 @@ const handleSubmit = async () => {
     keyAttribute: keyAttribute.value
   }
   console.log(knightPostData)
-  if (validatePostSubmit(knightPostData)) {
-    console.log('true ')
-  }
-  else {
-    console.log('false')
-  }
+  // if (validatePostSubmit(knightPostData)) {
+  //   console.log('true ')
+  // }
+  // else {
+  //   console.log('false')
+  // }
 
   try {
     const response = await fetch(url, {
