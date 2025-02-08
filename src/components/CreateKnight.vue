@@ -241,8 +241,15 @@ const getRandomArbitraryNumber = (min: number, max: number)  => {
   return Math.floor(Math.random() * (max - min) + min);
 }
 
+
+const validatePostSubmit = (knightPostData) => {
+
+  if (!knightPostData.name)  return true;
+
+}
+
 const handleSubmit = async () => {
-  const url = "http://localhost:3000/knights/"
+  const url: string = import.meta.env.VITE_API_URL + import.meta.env.VITE_KNIGHTS_ROUTE
   const knightPostData = {
     ...knightData,
     attributes,
@@ -250,6 +257,12 @@ const handleSubmit = async () => {
     keyAttribute: keyAttribute.value
   }
   console.log(knightPostData)
+  if (validatePostSubmit(knightPostData)) {
+    console.log('true ')
+  }
+  else {
+    console.log('false')
+  }
 
   try {
     const response = await fetch(url, {

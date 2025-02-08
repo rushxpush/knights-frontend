@@ -3,7 +3,11 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        VITE_MODE: ${VITE_MODE}
     container_name: knights_frontend_container
     restart: always
     ports:
       - '8080:8080'
+    env_file:
+      - .env.${VITE_MODE}

@@ -51,7 +51,7 @@ import type { FetchedKnight } from '@/interfaces/fetched-knight.interface';
 import { onMounted, ref, type Ref } from 'vue';
 import ShowResponseStatus from './ShowResponseStatus.vue';
 
-  const url = 'http://localhost:3000/knights'
+  const url: string = import.meta.env.VITE_API_URL + import.meta.env.VITE_KNIGHTS_ROUTE;
   const showKnightsList = ref(true);
 
   const knights: Ref<FetchedKnight[]> = ref([]);

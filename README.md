@@ -1,12 +1,12 @@
 # Knights Challenge - Frontend
 
-[Tecnologias](#tecnologias) | [Funcionalidades](#funcionalidades) | [Descrição](#descrição) | [Instalação](#instalação) | [Imagens](#imagens) | [Suporte](#suporte) | [Lista de bugs](#lista-de-bugs) | [Bugs Resolvidos](#bugs-resolvidos)
+[Tecnologias](#tecnologias) | [Funcionalidades](#funcionalidades) | [Descrição](#descrição) | [Instalação](#instalação) | [Avisos](#avisos) | [Imagens](#imagens) | [Suporte](#suporte) | [Lista de bugs](#lista-de-bugs) | [Bugs Resolvidos](#bugs-resolvidos)
 
 ## Tecnologias
 
 <ul>
   <li>Vue</li>
-  <!-- <li>Pinia</li> -->
+  <li>Pinia - Futuramente!</li>
   <li>Oh, Vue Icons!</li>
   <li>Vue Router</li>
 </ul>
@@ -39,9 +39,6 @@
 - &#x2610; Testes e2e
 - &#x2610; Refatorar visual, alinhar botões e divs (e instalar styled-components ou tailwind)
 - &#x2610; Não esquecer de testar no mobile após refatoração
-
-
-
 
 [Ir para o topo](#knights-challenge---frontend)
 
@@ -79,7 +76,13 @@ docker compose up --build
 
 [Ir para o topo](#knights-challenge---frontend)
 
-5. Imagens
+## Avisos
+
+Futuros avisos
+
+[Ir para o topo](#knights-challenge---frontend)
+
+## Imagens
 
 ![Alt text](Screenshot_1.png)
 
