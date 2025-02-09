@@ -1,7 +1,3 @@
-<script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-</script>
-
 <template>
   <!-- <header>
   </header> -->
@@ -9,10 +5,30 @@ import { RouterLink, RouterView } from 'vue-router'
     <RouterLink to="/">Cadastro de Knights</RouterLink>
     <RouterLink to="/list">Lista de Knights</RouterLink>
     <RouterLink to="/about">Sobre</RouterLink>
+    <RouterLink to="/login">Login</RouterLink>
+    <button @click="handleLogout()">logout</button>
   </nav>
 
   <RouterView />
+
+  <Suspense>
+    <template #fallback>
+      Loading...
+    </template>
+  </Suspense>
 </template>
+
+<script setup lang="ts">
+import { RouterLink, RouterView } from 'vue-router'
+import { useAuthStore } from './stores/auth';
+
+const authStore = useAuthStore();
+
+const handleLogout = () => {
+  authStore.logout();
+}
+
+</script>
 
 <style scoped>
 header {

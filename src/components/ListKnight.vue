@@ -50,6 +50,7 @@
 import type { FetchedKnight } from '@/interfaces/fetched-knight.interface';
 import { onMounted, ref, type Ref } from 'vue';
 import ShowResponseStatus from './ShowResponseStatus.vue';
+import axios from 'axios';
 
   const url: string = 'http://localhost:3000/knights'
 
@@ -62,10 +63,10 @@ import ShowResponseStatus from './ShowResponseStatus.vue';
   const isModalVisible = ref<boolean>(false);
 
   const handleFetchKnightsList = async () => {
+
     try {
-      const response = await fetch(url);
-      const data: FetchedKnight[] = await response.json();
-      knights.value = data;
+      const response = await axios.get(url);
+      knights.value = response.data;
       addEditToKnightsList()
     } catch(error) {
       console.log('Error: ', error)
@@ -74,9 +75,8 @@ import ShowResponseStatus from './ShowResponseStatus.vue';
 
   const handleFetchHeroesList = async () => {
     try {
-      const response = await fetch(url + '?filter=heroes');
-      const data: FetchedKnight[] = await response.json();
-      knights.value = data;
+      const response = await axios.get(url + '?filter=heroes');
+      knights.value = response.data;
       addEditToKnightsList()
     } catch(error) {
       console.log('Error: ', error)
@@ -94,7 +94,7 @@ import ShowResponseStatus from './ShowResponseStatus.vue';
 
   const handleRemoveKnight = async (_id: string) => {
     try {
-      const response = await fetch(url + `/${_id}`, {
+      const response = await axios.delete(url + `/${_id}`, {
         method: 'Delete'
       });
 
@@ -122,21 +122,18 @@ import ShowResponseStatus from './ShowResponseStatus.vue';
 
   const handleUpdateNickname = async (knight: FetchedKnight) => {
     try {
-      const response = await fetch(url + `/${knight._id}`, {
-        method: 'PATCH',
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          nickname: newKnightNickname.value
-        })
+      const response = await axios.patch(url + `/${knight._id}`, {
+        nickname: newKnightNickname.value
       });
+
+      console.log('response: ', response)
 
       responseStatus.value = response.status
       responseMessage.value = response.statusText
       isModalVisible.value = true;
 
-      if (!response.ok) {
+
+      if (response.status !== 200) {
         throw new Error(`Failed to update nickname: ${response.statusText}`)
       }
       else {

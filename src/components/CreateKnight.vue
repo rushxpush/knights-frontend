@@ -125,6 +125,8 @@ import type { Attributes } from '@/interfaces/attributes.interface';
 import type { Weapon } from '@/interfaces/weapon.interface';
 import ShowResponseStatus from './ShowResponseStatus.vue';
 import { reactive, ref } from 'vue';
+import { useAuthStore } from '@/stores/auth';
+import axios from 'axios';
 
 const knightData = reactive({
   name: '',
@@ -172,6 +174,9 @@ const isModalVisible = ref<boolean>(false);
 
 const tempSelectedWeapons = ref<Weapon[]>([]);
 const selectedWeapons = ref<Weapon[]>([]);
+
+const auth = useAuthStore();
+auth.login('john', 'johnpass');
 
 const addSelectedWeapons = () => {
   for (let i = 0; i < tempSelectedWeapons.value.length; i++) {
@@ -257,21 +262,10 @@ const handleSubmit = async () => {
     weapons: selectedWeapons.value,
     keyAttribute: keyAttribute.value
   }
-  console.log(knightPostData)
-  // if (validatePostSubmit(knightPostData)) {
-  //   console.log('true ')
-  // }
-  // else {
-  //   console.log('false')
-  // }
 
   try {
-    const response = await fetch(url, {
-      method: 'POST',
-      body: JSON.stringify(knightPostData),
-      headers: {
-        "Content-Type": 'application/json'
-      }
+    const response = await axios.post(url, {
+      ...knightPostData,
     })
 
     responseStatus.value = response.status

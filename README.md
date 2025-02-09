@@ -6,7 +6,7 @@
 
 <ul>
   <li>Vue</li>
-  <li>Pinia - Futuramente!</li>
+  <li>Pinia</li>
   <li>Oh, Vue Icons!</li>
   <li>Vue Router</li>
 </ul>
@@ -30,13 +30,29 @@
 - &check; Modal para mostrar se mudanças foram bem (ou mal) sucedidas no banco.
 - &check; Botão para remover knight
 - &check; Filtro para exibir apenas knights que viraram heróis
+- &#x2610; Mostrar mensagem ao deletar knight
 - &#x2610; Botão para limpar input de criação de knight
 - &#x2610; Aplicar os tipos do Typescript em todas as funções e variáveis que faltam
 - &#x2610; Refatorar CreateKnight.vue e ListKnight.vue em subcomponentes (WeaponComponent.vue, AttributesComponent.vue, etc.)
-- &#x2610; Adicionar validação para POST request. Não permitir que request seja feito sem que todos os dados estejam preenchidos
 - &#x2610; Componente para ver os detalhes de um knight
+
+### Validação
+
+- &#x2610; Adicionar validação para POST request. Não permitir que request seja feito sem que todos os dados estejam preenchidos
+
+### Autenticação
+
+- &check; Criar store do pinia para lidar com autenticação
+- &check; Criar página de login
+- &check; Trocar de fetch para axios
+
+### Testes 
+
 - &#x2610; Implementar testes unitários
 - &#x2610; Testes e2e
+
+### UI
+
 - &#x2610; Refatorar visual, alinhar botões e divs (e instalar styled-components ou tailwind)
 - &#x2610; Não esquecer de testar no mobile após refatoração
 
@@ -101,6 +117,8 @@ Qualquer dúvida mande um email para [rafagarciadev@gmail.com](mailto:rafagarcia
 ## Lista de bugs
 
 - &#x2610; Acessar qualquer link que não seja http://localhost:8080 na barra de navegação gera um erro de página não encontrada (falta configurar o servidor para dar suporte ao Vue Router)
+- &#x2610; Ao logar com username e password corretos, algumas vezes o vue.router não redireciona para a home page
+- &#x2610; Axios não está pega o token do localStorage antes to vue router checar a existência do token
 
 [Ir para o topo](#knights-challenge---frontend)
 
